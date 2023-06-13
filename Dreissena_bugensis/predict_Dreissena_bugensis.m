@@ -109,24 +109,26 @@ function [prdData, info] = predict_Dreissena_bugensis(par, data, auxData)
    
     % TC_TF2 = tempcorr(TF2(:,1), T_ref, pars_T); % temperature correction for temp-fr data (zebra acclimated to 8 dC)
     pars_abj = [p_Am, v, p_M, k_J, kap, kap_G, E_G, E_Hb, E_Hj, E_Hp]; 
-
-    E_initial = 0.005 .* E_m;
+    s_M = L_j/L_b;
     L_initial = L_tL_high .* del_M;
+    E_initial = f .* E_m .* L_initial .^3;
     E_H_initial = E_Hp; % 10 mm mussel already matures?
     R_initial = 0;
     ELHRi = [E_initial, L_initial, E_H_initial, R_initial];
     tf = [tT(1,1), f_tL_high];
-    [tELHR]  = get_tELHR(pars_abj, tTC, tf, ELHRi, L_b);
+    tspan = tL1(:,1);
+    [tELHR]  = get_tELHR(tspan, pars_abj, tTC, tf, ELHRi, L_b, s_M);
     L = tELHR(:, 3);
     ELw1 = L ./del_M;
 
-    E_initial = 0.005 .* E_m;
     L_initial = L_tL_low .* del_M;
+    E_initial = f .* E_m .* L_initial .^3;
     E_H_initial = E_Hp; % 10 mm mussel already matures?
     R_initial = 0;
     ELHRi = [E_initial, L_initial, E_H_initial, R_initial];
     tf = [tT(1,1), f_tL_low];
-    [tELHR]  = get_tELHR(pars_abj, tTC, tf, ELHRi, L_b);
+    tspan = tL2(:,1);
+    [tELHR]  = get_tELHR(tspan, pars_abj, tTC, tf, ELHRi, L_b, s_M);
     L = tELHR(:, 3);
     ELw2 = L ./del_M;
     
@@ -179,24 +181,24 @@ end
 % 
 % end
 
-function [tELHR]  = get_tELHR(pars_abj, tTC, tf, ELHRi, Lb)
+function [tELHR]  = get_tELHR(tspan, pars_abj, tTC, tf, ELHRi, Lb, s_M)
     % modified from get_indDyn_mod
     % Edited 2023/06/12 by Tongyao
     
-    tspan = tTC(:,1); % set simulation time
+    % tspan = tTC(:,1); % set simulation time
     % options = odeset('Events',@stage_events_abj, 'AbsTol',1e-9, 'RelTol',1e-9);
     if size(tf, 1) == 1
-        tf = [tTC(1,1) tf(1,2); tTC(end,1) tf(1,2)];
+        tf = [tspan(1) tf(1,2); tspan(end) tf(1,2)];
     end
     options = [];
     % % 3nd call from metamorphosis to the end of simulation
     % L_b = NaN;        
-    s_M = NaN;  
+    % s_M = NaN;  
     isterminal =[0,0,0];
     [t, ELHR] = ode45(@dget_ELHR_abj, tspan, ELHRi, options, pars_abj, tTC, tf, Lb, s_M, isterminal);
     % [t, ELHR] = ode45(@dget_ELHR_abj, tspan, ELHRi, options, pars_abj, tTC, tf, Lb, s_M, isterminal);
     % pack output
-    ELHR = [t, ELHR];
+    tELHR = [t, ELHR];
 end
 
 function dELHR = dget_ELHR_abj(t, ELHR, p, tTC, tf, Lb, s_M, isterminal)
