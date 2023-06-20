@@ -7,7 +7,8 @@ function [prdData, info] = predict_Dreissena_bugensis(par, data, auxData)
     v2struct(par); v2struct(cPar); v2struct(data); v2struct(auxData);
     
     % compute temperature correction factors
-    pars_T = [T_A, T_L, T_H, T_AL, T_AH]; % T_H cannot be smaller than T_ref
+        pars_T = T_A; % 
+%     pars_T = [T_A, T_L, T_H, T_AL, T_AH]; % T_H cannot be smaller than T_ref
     % pars_T = T_A;
     % if exist('T_L','var') && exist('T_AL','var')
     %     par_T = [T_A; T_L; T_AL];
@@ -27,6 +28,12 @@ function [prdData, info] = predict_Dreissena_bugensis(par, data, auxData)
     tTC_tL1 = [temp.tL1(:,1), tempcorr(temp.tL1(:,2), T_ref, pars_T)]; % vector of T in time, K
     TC_TF1 = tempcorr(C2K(TF1(:,1)), T_ref, pars_T); % temperature correction for temp-fr data (zebra acclimated to 8 dC)
 
+    % customized filter
+    filterChecks = f_tL_high > 1 || f_tL_high <0 || f_tL_low > 1 || f_tL_low <0 || f_tF > 1 || f_tF < 0;
+    if filterChecks
+        info = 0; prdData = []; return;
+    end
+    
     % life cycle
     pars_tj = [g; k; l_T; v_Hb; v_Hj; v_Hp];
     [tau_j, tau_p, tau_b, l_j, l_p, l_b, l_i, rho_j, rho_B, info] = get_tj(pars_tj, f);
@@ -114,7 +121,7 @@ function [prdData, info] = predict_Dreissena_bugensis(par, data, auxData)
     E_H_initial = E_Hp; % 10 mm mussel already matures?
     R_initial = 0;
     ELHRi = [E_initial, L_initial, E_H_initial, R_initial];
-    tf = [temp.tL1(1,1), f_tL_high];
+    tf = f_tL_high;
     tspan = tL1(:,1)-7;
     [tELHR]  = get_tELHR(tspan, pars_abj, tTC_tL1, tf, ELHRi, L_b, s_M);
     L = tELHR(:, 3); % cm, structural length
@@ -125,8 +132,8 @@ function [prdData, info] = predict_Dreissena_bugensis(par, data, auxData)
     E_H_initial = E_Hp; % 10 mm mussel already matures?
     R_initial = 0;
     ELHRi = [E_initial, L_initial, E_H_initial, R_initial];
-    tf = [temp.tL1(1,1), f_tL_low];
-    tspan = tL2(:,1);
+    tf = f_tL_low;
+    tspan = tL2(:,1)-7;
     [tELHR]  = get_tELHR(tspan, pars_abj, tTC_tL1, tf, ELHRi, L_b, s_M);
     L = tELHR(:, 3);  % cm, structural length
     ELw2 = L ./del_M; % cm, physical length
@@ -145,50 +152,15 @@ function [prdData, info] = predict_Dreissena_bugensis(par, data, auxData)
     prdData.TF1 = EJX;
 end
 
-% function dELH = dget_ELH(t, ELH, tTC, E_Hj, r_j, r_B, L_b, L_j, L_i, v, g, kap, k_J, E_m, f)
-%     E = ELH(1); L = ELH(2); E_H = ELH(3); % cm, J: structural length, maturity
-%     % scaled reserve density
-%     e = E / L^3 /E_m;
-%     de = (f - e) * v / L;
-%     % s_M = min(L, L_j)/ L_b; % -, acceleration factor
-%     s_M = L_j / L_b;
-%     r = v * s_M * (e/ L - 1/ L_i)/ (e + g); % 1/d, spec growth rate
-%     p_C = L^3 * E_m * e * (s_M * v/ L - r); % J/d, mobilisation rate
-%     dE_H = 0; %(1 - kap) * p_C - k_J * E_H; % change in maturity at T_ref
-% 
-%     % if E_H < E_Hj
-%     %     dL = L * r_j/3; % cm/d, change in length before metam at T_ref
-%     % else
-%     %     dL = r_B * (L_i - L); % cm/d, change in length after metam at T_ref
-%     % end
-%     %
-%     % dL = r_B * (L_i - L); % cm/d, change in length after metam at T_ref? L is
-%     % not at T_ref. This way, L will increase
-% 
-% 
-%     % if kap * p_C - p_S > 0
-%     %     r = v * s_M * (e/ L - 1/ L_i)/ (e + g); % 1/d, spec growth rateelse % starvation
-%     %     r = ()/()
-%     % end
-%     % p_C = L^3 * E_m * e * (s_M * v/ L - r); % J/d, mobilisation rate
-%     dL = L * r/3; % only this could make L decrease?
-% 
-%     dE = L^2 * (L * de + e * 3 * dL) * E_m;
-% 
-% 
-%     dELH = spline1(t, tTC) * [dE; dL; dE_H]; % cm/d, J/d: changes at T
-% 
-% end
-
 function [tELHR]  = get_tELHR(tspan, pars_abj, tTC, tf, ELHRi, Lb, s_M)
     % modified from get_indDyn_mod
     % Edited 2023/06/12 by Tongyao
     
     % tspan = tTC(:,1); % set simulation time
     % options = odeset('Events',@stage_events_abj, 'AbsTol',1e-9, 'RelTol',1e-9);
-    if size(tf, 1) == 1
-        tf = [tspan(1) tf(1,2); tspan(end) tf(1,2)];
-    end
+%     if size(tf, 1) == 1
+%         tf = [tspan(1) tf(1,2); tspan(end) tf(1,2)];
+%     end
     options = [];
     % % 3nd call from metamorphosis to the end of simulation
     % L_b = NaN;        
@@ -221,7 +193,11 @@ function dELHR = dget_ELHR_abj(t, ELHR, p, tTC, tf, Lb, s_M, isterminal)
     E_G = p(7); E_Hb = p(8); E_Hj = p(9); E_Hp = p(10);
     
     TC = spline1(t, tTC);  % C, temperature at t
+    if size(tf,1) > 1
     f_t = spline1(t, tf);  % -, scaled functional response at t
+    else
+    f_t = tf;
+    end
     
     % temp correction
     pT_Am = TC * p_Am ;
