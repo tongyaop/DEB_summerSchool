@@ -3,7 +3,6 @@ function [data, auxData, metaData, txtData, weights] = mydata_Dreissena_bugensis
 % modified by Tongyao Pu 2023/06/08, added data:
 % tL, TF, TJO2, 
 
-global tT % temperature vector for Ashley2015 growth data tL
 %% set metaData
 metaData.phylum     = 'Mollusca';
 metaData.class      = 'Bivalvia';
@@ -76,14 +75,14 @@ load ../data/data_low_food_exp.mat
 
 % time - length data
 % model modified from Mastigias_papua, with advice from Bas
-
-% time varying temperature (remember to make this a global variable)
-tT = double([data_high_food_exp.week .* 7, data_high_food_exp.temp_C]); % time (d), temperature (C)
-tT = [tT(:,1), C2K(tT(:,2))]; % convert Celsius to Kelvin
-
 data.tL1 = [double(data_high_food_exp.week .* 7), data_high_food_exp.length_mm_expmean.*0.1]; % Time (d) shell length (cm)
 units.tL1   = {'d','cm'};  label.tL1 = {'time', 'shell length'};  
 bibkey.tL1 = 'Ashley';
+% time varying temperature (remember to make this a global variable)
+temp.tL1 = double([data_high_food_exp.week .* 7, data_high_food_exp.temp_C]); % time (d), temperature (C)
+temp.tL1 = [temp.tL1(:,1), C2K(temp.tL1(:,2))]; % convert Celsius to Kelvin
+units.temp.tL1 = {'d','K'}; label.temp.tL = {'time','temperature'};
+
 
 data.tL2 = [double(data_high_food_exp.week .* 7), data_low_food_exp.length_mm_expmean.*0.1]; % Time (d) shell length (cm)
 units.tL2   = {'d','cm'};  label.tL2 = {'time', 'shell length'};  
