@@ -82,11 +82,15 @@ bibkey.tL1 = 'Ashley';
 temp.tL1 = double([data_high_food_exp.week .* 7, data_high_food_exp.temp_C]); % time (d), temperature (C)
 temp.tL1 = [temp.tL1(:,1), C2K(temp.tL1(:,2))]; % convert Celsius to Kelvin
 units.temp.tL1 = {'d','K'}; label.temp.tL = {'time','temperature'};
+Linit.tL1 = 1.0441;    units.Linit.tL1  = 'cm';  label.Linit.tL1 = 'initial length high food';
 
 
 data.tL2 = [double(data_high_food_exp.week .* 7), data_low_food_exp.length_mm_expmean.*0.1]; % Time (d) shell length (cm)
 units.tL2   = {'d','cm'};  label.tL2 = {'time', 'shell length'};  
 bibkey.tL2 = 'Ashley';
+Linit.tL2 = 1.05148;    units.Linit.tL2  = 'cm';  label.Linit.tL2 = 'initial length low food';
+
+
 % 
 % Filtration and clearance rate vs temperature. Lei1996 is zebra mussel
 % data
@@ -164,6 +168,7 @@ weights.tL2 = weights.tL2 .* 0;
 
 %% pack auxData and txtData for output
 auxData.temp = temp;
+auxData.Linit = Linit;
 txtData.units = units;
 txtData.label = label;
 txtData.bibkey = bibkey;

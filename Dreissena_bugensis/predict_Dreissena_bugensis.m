@@ -109,27 +109,27 @@ function [prdData, info] = predict_Dreissena_bugensis(par, data, auxData)
     % TC_TF2 = tempcorr(TF2(:,1), T_ref, pars_T); % temperature correction for temp-fr data (zebra acclimated to 8 dC)
     pars_abj = [p_Am, v, p_M, k_J, kap, kap_G, E_G, E_Hb, E_Hj, E_Hp]; 
     s_M = L_j/L_b;
-    L_initial = L_tL_high .* del_M;
-    E_initial = f .* E_m .* L_initial .^3;
+    L_initial = Linit.tL1 * del_M;
+    E_initial = f * E_m * L_initial^3;
     E_H_initial = E_Hp; % 10 mm mussel already matures?
     R_initial = 0;
     ELHRi = [E_initial, L_initial, E_H_initial, R_initial];
     tf = [temp.tL1(1,1), f_tL_high];
-    tspan = tL1(:,1);
+    tspan = tL1(:,1)-7;
     [tELHR]  = get_tELHR(tspan, pars_abj, tTC_tL1, tf, ELHRi, L_b, s_M);
-    L = tELHR(:, 3);
-    ELw1 = L ./del_M;
+    L = tELHR(:, 3); % cm, structural length
+    ELw1 = L ./del_M; % cm, physical length
 
-    L_initial = L_tL_low .* del_M;
-    E_initial = f .* E_m .* L_initial .^3;
+    L_initial = Linit.tL2 * del_M;
+    E_initial = f * E_m * L_initial^3;
     E_H_initial = E_Hp; % 10 mm mussel already matures?
     R_initial = 0;
     ELHRi = [E_initial, L_initial, E_H_initial, R_initial];
     tf = [temp.tL1(1,1), f_tL_low];
     tspan = tL2(:,1);
     [tELHR]  = get_tELHR(tspan, pars_abj, tTC_tL1, tf, ELHRi, L_b, s_M);
-    L = tELHR(:, 3);
-    ELw2 = L ./del_M;
+    L = tELHR(:, 3);  % cm, structural length
+    ELw2 = L ./del_M; % cm, physical length
     
     % temp - filtration
     % temperature (C), Filtration rate (mg/h.g)

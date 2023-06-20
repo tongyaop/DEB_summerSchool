@@ -34,9 +34,7 @@ par.T_AH = 2e4;      free.T_AH   = 1;   units.T_AH = 'K';          label.T_AH = 
 par.del_M = 0.27852;  free.del_M = 1;   units.del_M = '-';        label.del_M = 'shape coefficient'; 
 par.f = 1;            free.f     = 0;   units.f = '-';            label.f = 'scaled functional response for 0-var data'; 
 par.t_0 = 0;          free.t_0   = 0;   units.t_0 = 'd';          label.t_0 = 'time at start of development'; 
-par.L_tL_high = 1.0441;    free.L_tL_high  = 0;   units.L_tL_high = 'cm';          label.L_tL_high = 'size at the start of the tL experiment';
 par.f_tL_high = 0.4;       free.f_tL_high  = 0;   units.f_tL_high = '-';            label.f_tL_high = 'scaled functional response for high food condition'; 
-par.L_tL_low = 1.05148;    free.L_tL_low  = 0;   units.L_tL_low = 'cm';          label.L_tL_low = 'size at the start of the tL experiment';
 par.f_tL_low = 0.2;       free.f_tL_low  = 0;   units.f_tL_low = '-';            label.f_tL_low = 'scaled functional response for tL low food condition'; 
 par.f_tF = 0.5;        free.f_tF  = 0;   units.f_tF = '-';            label.f_tF = 'scaled functional response for temp-filtrationRate data'; 
 %% set chemical parameters from Kooy2010 
