@@ -201,9 +201,9 @@ X_J = X_cmol * mu_X ;                         % [J/L], food concentration. with 
 p_Xm = (1/kap_X)*(1/kap)*z * p_M;             % [J/d/cm2]. algebraically from z = L_m / L_m^ref(1cm). Lm = kap p_Am/p_M
 K = p_Xm / F_m; 
 
-p_XJ = p_Xm * TC_X_JX_TL .* L.^2;
-CR = p_XJ ./ (X_J + K);
-% CR = (TC_X_JX_TL .* p_Xm .* L.^2) ./ (X_J + p_Xm./F_m); % [L/d], clearance rate
+% p_XJ = p_Xm * TC_X_JX_TL .* L.^2;
+% CR = p_XJ ./ (X_J + K);
+CR = (p_Xm * TC_X_JX_TL .* L.^2) ./ (X_J + p_Xm/F_m); % [L/d], clearance rate
 EJX_GLERL2008_CR = CR ./ Wd ./ 24;                % [mL/mg/h], milli cancels out
 EJX_GLERL2008_FR = CR .* X_JX_TL(:,1) ./ (Wd .* 1e3) ./ 24; % [ug/mg/h], filtration rate (how much food being filtred and ingested*)
 

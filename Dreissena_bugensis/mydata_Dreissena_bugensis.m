@@ -178,15 +178,31 @@ bibkey.X_CR = 'Lei1996';
 comment.X_CR = 'zebra data. not sure if microsphere concentration is dry weight. assume it is';
 
 %% GLERL 2008-11 Filtration
-GLERL_2013Feeding_Co_ind = readmatrix('../data/GLERL_2013Feeding_Co_ind.csv');
-%"Temp..C.","length..mm.","ind.Dw..mg.","AFDW..mg.","Z0..ug.chlorophyll.L.",
-%"F..mL.mg.h.","FI..mL.mg.h.","CR..ug.mg.h.","IR..ug.mg.h.","X"
+% GLERL_2013Feeding_Co_ind = readmatrix('../data/GLERL_2013Feeding_Co_ind.csv');
+% %"Temp..C.","length..mm.","ind.Dw..mg.","AFDW..mg.","Z0..ug.chlorophyll.L.",
+% %"F..mL.mg.h.","FI..mL.mg.h.","CR..ug.mg.h.","IR..ug.mg.h.","X"
+% 
+% % data: Z0 [ug/L], FI [mL/mg/h], IR [ug/mg/h]
+% % auxilliary data: Temp [C], length [mm]
+% Z0 = GLERL_2013Feeding_Co_ind(:, 5);
+% FI = GLERL_2013Feeding_Co_ind(:, 7);
+% IR = GLERL_2013Feeding_Co_ind(:, 9);
+% ET = GLERL_2013Feeding_Co_ind(:, 1); % [C]
+% EL = 0.1 * GLERL_2013Feeding_Co_ind(:, 2); % [cm]
+
+GLERL_2013Feeding_Co = readmatrix('../data/GLERL_2013Feeding_Co.csv');
+% "Temp..C.","length_mm","length_se","dw_mg","dw_se",
+% "afdw_mg","afdw_se","Z0_ug_L","Z0_se","F_ml_mg.h",
+% "F_se","FI_mL_mg.h","FI_se","CR_ug_mg.h","CI_se",
+% "IR_ug_mg.h","IR_se","MDR_gC_gc.d","MDR_se"
 
 % data: Z0 [ug/L], FI [mL/mg/h], IR [ug/mg/h]
 % auxilliary data: Temp [C], length [mm]
-Z0 = GLERL_2013Feeding_Co_ind(:, 5);
-FI = GLERL_2013Feeding_Co_ind(:, 7);
-IR = GLERL_2013Feeding_Co_ind(:, 9);
+Z0 = GLERL_2013Feeding_Co(:, 8);
+FI = GLERL_2013Feeding_Co(:, 12);
+IR = GLERL_2013Feeding_Co(:, 16);
+ET = GLERL_2013Feeding_Co(:, 1); % [C], experimental temp
+EL = 0.1 * GLERL_2013Feeding_Co(:, 2); % [cm], experiment mussel length
 
 data.X_CR_TL = [Z0 FI];
 units.X_CR_TL = {'ug/L', 'mL/mg.h'};
@@ -200,11 +216,12 @@ label.X_JX_TL = {'Cryptomonas ozolini concentration', 'IR'};
 bibkey.X_JX_TL = 'GLERL2013';
 comment.X_JX_TL = 'GLERL filtration experiment from 2008 - 2011';
 
-temp.X_JX_TL = GLERL_2013Feeding_Co_ind(:, 1);
-units.X_JX_TL = 'C'; label.temp.X_JX_TL = 'temperature';
+temp.X_JX_TL = ET;
+units.temp.X_JX_TL = 'C'; label.temp.X_JX_TL = 'temperature';
 
-Lphy.X_JX_TL = 0.1 * GLERL_2013Feeding_Co_ind(:, 2);
+Lphy.X_JX_TL = EL;
 units.Lphy.X_JX_TL = 'cm'; label.Lphy.X_JX_TL = 'physical length';
+
 % data: length [mm], afdw [mg]
 
 %% set weights for all real data
