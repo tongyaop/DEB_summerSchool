@@ -44,7 +44,7 @@
   </div>
 
   <div class="par">
-  <h4>COMPLETE = 2.0; MRE =    2.287; SMAE =    0.738; SMSE =    0.613 </h4>
+  <h4>COMPLETE = 2.0; MRE =    1.726; SMAE =    0.733; SMSE =    0.686 </h4>
   </div>
 
   <p class="clear"></p>
@@ -53,10 +53,10 @@
   <h2>Data & predictions</h2>
   <TABLE id="prd">
     <TR  class="head"><TH>data</TH> <TH>prd</TH> <TH>RE</TH>  <TH>symbol</TH> <TH>units</TH> <TH>description</TH> </TR>
-    <TR><TD>  3</TD> <TD>3.163</TD> <TD>0.05445</TD> <TD>ab</TD> <TD>d</TD> <TD>age at birth</TD></TR>
-    <TR><TD> 15</TD> <TD>1.863</TD> <TD>0.8758</TD> <TD>tj</TD> <TD>d</TD> <TD>time since birth at end acceleration</TD></TR>
-    <TR><TD>180</TD> <TD>164.9</TD> <TD>0.08369</TD> <TD>tp</TD> <TD>d</TD> <TD>time since birth at puberty</TD></TR>
-    <TR><TD>1095</TD> <TD>1.523e+04</TD> <TD>12.91</TD> <TD>am</TD> <TD>d</TD> <TD>life span</TD></TR>
+    <TR><TD>  3</TD> <TD>2.686</TD> <TD>0.1046</TD> <TD>ab</TD> <TD>d</TD> <TD>age at birth</TD></TR>
+    <TR><TD> 15</TD> <TD>1.582</TD> <TD>0.8945</TD> <TD>tj</TD> <TD>d</TD> <TD>time since birth at end acceleration</TD></TR>
+    <TR><TD>180</TD> <TD>140.1</TD> <TD>0.2219</TD> <TD>tp</TD> <TD>d</TD> <TD>time since birth at puberty</TD></TR>
+    <TR><TD>1095</TD> <TD>1.293e+04</TD> <TD>10.81</TD> <TD>am</TD> <TD>d</TD> <TD>life span</TD></TR>
     <TR><TD>0.01</TD> <TD>0.018</TD> <TD>0.7997</TD> <TD>Lb</TD> <TD>cm</TD> <TD>length at birth</TD></TR>
     <TR><TD>0.03</TD> <TD>0.02805</TD> <TD>0.06513</TD> <TD>Lj</TD> <TD>cm</TD> <TD>length at end acceleration</TD></TR>
     <TR><TD>0.7</TD> <TD>1.004</TD> <TD>0.4344</TD> <TD>Lp</TD> <TD>cm</TD> <TD>length at puberty</TD></TR>
@@ -65,10 +65,14 @@
     <TR><TD>1.47e-07</TD> <TD>1.522e-07</TD> <TD>0.03559</TD> <TD>Wdj</TD> <TD>g</TD> <TD>dry weight at end acceleration</TD></TR>
     <TR><TD>0.00063</TD> <TD>0.006986</TD> <TD>10.09</TD> <TD>Wdp</TD> <TD>g</TD> <TD>dry weight at puberty</TD></TR>
     <TR><TD>0.168</TD> <TD>0.82</TD> <TD>3.881</TD> <TD>Wdi</TD> <TD>g</TD> <TD>ultimate dry weight</TD></TR>
-    <TR><TD>2740</TD> <TD>577.6</TD> <TD>0.7892</TD> <TD>Ri</TD> <TD>#/d</TD> <TD>ultimate reproduction rate</TD></TR>
-    <TR><TD colspan="2">see figure</TD> <TD>2.036</TD> <TD>tL1</TD> <TD colspan="2">time <font color="blue"><i>vs.</i></font> shell length</TD>
-    <TR><TD colspan="2">see figure</TD> <TD>1.465</TD> <TD>tL2</TD> <TD colspan="2">time <font color="blue"><i>vs.</i></font> shell length</TD>
-    <TR><TD colspan="2">see figure</TD> <TD>0.8742</TD> <TD>TF1</TD> <TD colspan="2">temperature <font color="blue"><i>vs.</i></font> spec filtration rate</TD>
+    <TR><TD>2740</TD> <TD>680.2</TD> <TD>0.7518</TD> <TD>Ri</TD> <TD>#/d</TD> <TD>ultimate reproduction rate</TD></TR>
+    <TR><TD colspan="2">see figure</TD> <TD>0.1081</TD> <TD>tL1</TD> <TD colspan="2">time <font color="blue"><i>vs.</i></font> shell length</TD>
+    <TR><TD colspan="2">see figure</TD> <TD>0.1291</TD> <TD>tL2</TD> <TD colspan="2">time <font color="blue"><i>vs.</i></font> shell length</TD>
+    <TR><TD colspan="2">see figure</TD> <TD>2.187</TD> <TD>LWd</TD> <TD colspan="2">shell length <font color="blue"><i>vs.</i></font> tissue AFDW</TD>
+    <TR><TD colspan="2">see figure</TD> <TD>1.061</TD> <TD>TF1</TD> <TD colspan="2">temperature <font color="blue"><i>vs.</i></font> spec filtration rate</TD>
+    <TR><TD colspan="2">see figure</TD> <TD>0.2717</TD> <TD>TJO1</TD> <TD colspan="2">temperature <font color="blue"><i>vs.</i></font> spec dioxygen consumption</TD>
+    <TR><TD colspan="2">see figure</TD> <TD>0.8112</TD> <TD>X_FR</TD> <TD colspan="2">Microsohere concentration <font color="blue"><i>vs.</i></font> filtration rate</TD>
+    <TR><TD colspan="2">see figure</TD> <TD>0.7456</TD> <TD>X_CR</TD> <TD colspan="2">Microsohere concentration <font color="blue"><i>vs.</i></font> clearance rate</TD>
     <TR class="psd"><TD>0.02</TD> <TD>0.0161</TD> <TD>0.1951</TD> <TD>psd.v</TD> <TD>cm/d</TD> <TD>energy conductance</TD></TR>
     <TR class="psd"><TD>0.8</TD> <TD>0.9927</TD> <TD>0.2409</TD> <TD>psd.kap</TD> <TD>-</TD> <TD>allocation fraction to soma</TD></TR>
     <TR class="psd"><TD>0.95</TD> <TD>0.95</TD> <TD>  0</TD> <TD>psd.kap_R</TD> <TD>-</TD> <TD>reproduction efficiency</TD></TR>
@@ -100,18 +104,15 @@
     <TR><TD>E_Hp</TD> <TD>J</TD> <TD>0.5868</TD> <TD>1</TD> <TD>maturity at puberty</TD></TR>
     <TR><TD>h_a</TD> <TD>1/d^2</TD> <TD>1.937e-09</TD> <TD>1</TD> <TD>Weibull aging acceleration</TD></TR>
     <TR><TD>s_G</TD> <TD>-</TD> <TD>0.0001</TD> <TD>0</TD> <TD>Gompertz stress coefficient</TD></TR>
-    <TR><TD>T_L</TD> <TD>K</TD> <TD>273.1</TD> <TD>1</TD> <TD>T_L</TD></TR>
-    <TR><TD>T_AL</TD> <TD>K</TD> <TD>1e+04</TD> <TD>1</TD> <TD>T_AL</TD></TR>
     <TR><TD>T_H</TD> <TD>K</TD> <TD>302</TD> <TD>0</TD> <TD>T_H</TD></TR>
     <TR><TD>T_AH</TD> <TD>K</TD> <TD>2e+04</TD> <TD>1</TD> <TD>T_AH</TD></TR>
     <TR><TD>del_M</TD> <TD>-</TD> <TD>0.2785</TD> <TD>1</TD> <TD>shape coefficient</TD></TR>
     <TR><TD>f</TD> <TD>-</TD> <TD>  1</TD> <TD>0</TD> <TD>scaled functional response for 0-var data</TD></TR>
     <TR><TD>t_0</TD> <TD>d</TD> <TD>  0</TD> <TD>0</TD> <TD>time at start of development</TD></TR>
-    <TR><TD>L_tL_high</TD> <TD>cm</TD> <TD>1.044</TD> <TD>0</TD> <TD>size at the start of the tL experiment</TD></TR>
-    <TR><TD>f_tL_high</TD> <TD>-</TD> <TD>0.4</TD> <TD>0</TD> <TD>scaled functional response for high food condition</TD></TR>
-    <TR><TD>L_tL_low</TD> <TD>cm</TD> <TD>1.051</TD> <TD>0</TD> <TD>size at the start of the tL experiment</TD></TR>
-    <TR><TD>f_tL_low</TD> <TD>-</TD> <TD>0.2</TD> <TD>0</TD> <TD>scaled functional response for tL low food condition</TD></TR>
-    <TR><TD>f_tF</TD> <TD>-</TD> <TD>0.5</TD> <TD>0</TD> <TD>scaled functional response for temp-filtrationRate data</TD></TR>
+    <TR><TD>f_tL_high</TD> <TD>-</TD> <TD>0.2</TD> <TD>1</TD> <TD>scaled functional response for high food condition</TD></TR>
+    <TR><TD>f_tL_low</TD> <TD>-</TD> <TD>  0</TD> <TD>1</TD> <TD>scaled functional response for tL low food condition</TD></TR>
+    <TR><TD>f_tF</TD> <TD>-</TD> <TD>  1</TD> <TD>0</TD> <TD>scaled functional response for temp-filtrationRate data</TD></TR>
+    <TR><TD>f_LWd</TD> <TD>-</TD> <TD>0.8</TD> <TD>0</TD> <TD>scaled functional response for GLERL length-weight data</TD></TR>
   </TABLE>
   </div>
 
