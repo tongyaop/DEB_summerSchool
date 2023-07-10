@@ -178,31 +178,25 @@ bibkey.X_CR = 'Lei1996';
 comment.X_CR = 'zebra data. not sure if microsphere concentration is dry weight. assume it is';
 
 %% GLERL 2008-11 Filtration
-% GLERL_2013Feeding_Co_ind = readmatrix('../data/GLERL_2013Feeding_Co_ind.csv');
-% %"Temp..C.","length..mm.","ind.Dw..mg.","AFDW..mg.","Z0..ug.chlorophyll.L.",
-% %"F..mL.mg.h.","FI..mL.mg.h.","CR..ug.mg.h.","IR..ug.mg.h.","X"
-% 
-% % data: Z0 [ug/L], FI [mL/mg/h], IR [ug/mg/h]
-% % auxilliary data: Temp [C], length [mm]
-% Z0 = GLERL_2013Feeding_Co_ind(:, 5);
-% FI = GLERL_2013Feeding_Co_ind(:, 7);
-% IR = GLERL_2013Feeding_Co_ind(:, 9);
-% ET = GLERL_2013Feeding_Co_ind(:, 1); % [C]
-% EL = 0.1 * GLERL_2013Feeding_Co_ind(:, 2); % [cm]
+GLERL_2013Feeding_Co_ind = readmatrix('../data/GLERL_2013Feeding_Co_ind.csv');
+%"Temp..C.","length..mm.","ind.Dw..mg.","AFDW..mg.","Z0..ug.chlorophyll.L.",
+%"F..mL.mg.h.","FI..mL.mg.h.","CR..ug.mg.h.","IR..ug.mg.h.","X"
+Z0 = GLERL_2013Feeding_Co_ind(:, 5); % Z0 [ug/L], initial concentration (C. ozolini)
+FI = GLERL_2013Feeding_Co_ind(:, 7); % FI [mL/mg/h], water being filtered per dw per hr
+IR = GLERL_2013Feeding_Co_ind(:, 9); % IR [ug/mg/h], food being filtered per dw per hr
+ET = GLERL_2013Feeding_Co_ind(:, 1); % [C]
+EL = 0.1 * GLERL_2013Feeding_Co_ind(:, 2); % [cm]
 
-GLERL_2013Feeding_Co = readmatrix('../data/GLERL_2013Feeding_Co.csv');
-% "Temp..C.","length_mm","length_se","dw_mg","dw_se",
-% "afdw_mg","afdw_se","Z0_ug_L","Z0_se","F_ml_mg.h",
-% "F_se","FI_mL_mg.h","FI_se","CR_ug_mg.h","CI_se",
-% "IR_ug_mg.h","IR_se","MDR_gC_gc.d","MDR_se"
-
-% data: Z0 [ug/L], FI [mL/mg/h], IR [ug/mg/h]
-% auxilliary data: Temp [C], length [mm]
-Z0 = GLERL_2013Feeding_Co(:, 8);
-FI = GLERL_2013Feeding_Co(:, 12);
-IR = GLERL_2013Feeding_Co(:, 16);
-ET = GLERL_2013Feeding_Co(:, 1); % [C], experimental temp
-EL = 0.1 * GLERL_2013Feeding_Co(:, 2); % [cm], experiment mussel length
+% GLERL_2013Feeding_Co = readmatrix('../data/GLERL_2013Feeding_Co.csv');
+% % "Temp..C.","length_mm","length_se","dw_mg","dw_se",
+% % "afdw_mg","afdw_se","Z0_ug_L","Z0_se","F_ml_mg.h",
+% % "F_se","FI_mL_mg.h","FI_se","CR_ug_mg.h","CI_se",
+% % "IR_ug_mg.h","IR_se","MDR_gC_gc.d","MDR_se"
+% Z0 = GLERL_2013Feeding_Co(:, 8); % Z0 [ug/L], initial concentration (C. ozolini)
+% FI = GLERL_2013Feeding_Co(:, 12); % FI [mL/mg/h], water being filtered per dw per hr
+% IR = GLERL_2013Feeding_Co(:, 16); % IR [ug/mg/h], food being filtered per dw per hr
+% ET = GLERL_2013Feeding_Co(:, 1); % [C], temp
+% EL = 0.1 * GLERL_2013Feeding_Co(:, 2); % [cm], mussel length
 
 data.X_CR_TL = [Z0 FI];
 units.X_CR_TL = {'ug/L', 'mL/mg.h'};
@@ -222,6 +216,9 @@ units.temp.X_JX_TL = 'C'; label.temp.X_JX_TL = 'temperature';
 Lphy.X_JX_TL = EL;
 units.Lphy.X_JX_TL = 'cm'; label.Lphy.X_JX_TL = 'physical length';
 
+% avoid interpolate prediction
+treat.X_CR_TL = {0};
+treat.X_JX_TL = {0};
 % data: length [mm], afdw [mg]
 
 %% set weights for all real data
@@ -242,6 +239,7 @@ weights = setweights(data, []);
 auxData.temp = temp;
 auxData.Linit = Linit;
 auxData.Lphy = Lphy;
+auxData.treat = treat;
 txtData.units = units;
 txtData.label = label;
 txtData.bibkey = bibkey;

@@ -217,6 +217,8 @@ prdData.X_CR = ECR_CR; % food concentration - clearance rate
 prdData.TJO1 = EjT_O1_umol; % temperature - oxygen consumption
 prdData.X_CR_TL = EJX_GLERL2008_CR; % [mL/mg/h]
 prdData.X_JX_TL = EJX_GLERL2008_FR; % [ug/mg/h]
+
+save('prdData.mat', 'prdData')
 end
 
 % function dELH = dget_ELH(t, ELH, tTC, E_Hj, r_j, r_B, L_b, L_j, L_i, v, g, kap, k_J, E_m, f)
