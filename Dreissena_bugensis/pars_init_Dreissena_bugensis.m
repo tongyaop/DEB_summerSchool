@@ -27,18 +27,18 @@ par.h_a = 1.937e-09;  free.h_a   = 1;   units.h_a = '1/d^2';      label.h_a = 'W
 par.s_G = 0.0001;     free.s_G   = 0;   units.s_G = '-';          label.s_G = 'Gompertz stress coefficient'; 
 
 %% other parameters 
-par.T_L = 273.15;     free.T_L   = 1;   units.T_L = 'K';          label.T_L = 'T_L'; 
-par.T_AL = 1e+04;     free.T_AL   = 1;   units.T_AL = 'K';          label.T_AL = 'T_AL'; 
+% par.T_L = 273.15;     free.T_L   = 1;   units.T_L = 'K';          label.T_L = 'T_L'; 
+% par.T_AL = 1e+04;     free.T_AL   = 1;   units.T_AL = 'K';          label.T_AL = 'T_AL'; 
 par.T_H = 302;        free.T_H   = 0;   units.T_H = 'K';          label.T_H = 'T_H'; 
 par.T_AH = 2e4;      free.T_AH   = 1;   units.T_AH = 'K';          label.T_AH = 'T_AH'; 
 par.del_M = 0.27852;  free.del_M = 1;   units.del_M = '-';        label.del_M = 'shape coefficient'; 
 par.f = 1;            free.f     = 0;   units.f = '-';            label.f = 'scaled functional response for 0-var data'; 
 par.t_0 = 0;          free.t_0   = 0;   units.t_0 = 'd';          label.t_0 = 'time at start of development'; 
-par.L_tL_high = 1.0441;    free.L_tL_high  = 0;   units.L_tL_high = 'cm';          label.L_tL_high = 'size at the start of the tL experiment';
-par.f_tL_high = 0.4;       free.f_tL_high  = 0;   units.f_tL_high = '-';            label.f_tL_high = 'scaled functional response for high food condition'; 
-par.L_tL_low = 1.05148;    free.L_tL_low  = 0;   units.L_tL_low = 'cm';          label.L_tL_low = 'size at the start of the tL experiment';
-par.f_tL_low = 0.2;       free.f_tL_low  = 0;   units.f_tL_low = '-';            label.f_tL_low = 'scaled functional response for tL low food condition'; 
-par.f_tF = 0.5;        free.f_tF  = 0;   units.f_tF = '-';            label.f_tF = 'scaled functional response for temp-filtrationRate data'; 
+par.f_tL_high = 0.2;       free.f_tL_high  = 1;   units.f_tL_high = '-';            label.f_tL_high = 'scaled functional response for high food condition'; 
+par.f_tL_low = 0;       free.f_tL_low  = 1;   units.f_tL_low = '-';            label.f_tL_low = 'scaled functional response for tL low food condition'; 
+par.f_tF = 1;        free.f_tF  = 0;   units.f_tF = '-';            label.f_tF = 'scaled functional response for temp-filtrationRate data'; 
+par.f_LWd = 0.8;        free.f_LWd  = 0;   units.f_LWd = '-';            label.f_LWd = 'scaled functional response for GLERL length-weight data'; 
+
 %% set chemical parameters from Kooy2010 
 [par, units, label, free] = addchem(par, units, label, free, metaData.phylum, metaData.class); 
 
